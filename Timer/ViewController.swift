@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.textColor = .white
-        label.text = "00:00:00"
+        label.text = "00:00"
         return label
     } ()
 
@@ -105,23 +105,23 @@ class ViewController: UIViewController {
     @objc func animationShape() {
         let circlePath = UIBezierPath(arcCenter: view.center, radius: 126, startAngle: CGFloat(-Double.pi / 2), endAngle: CGFloat(3 * ((Double.pi) / 2)), clockwise: true)
 
-        if labelTimer.text == "00:00:00" && labelInfo.text == "Press to start" {
+        if labelTimer.text == "00:00" && labelInfo.text == "Press to start" {
         circleLayer.path = circlePath.cgPath
-        circleLayer.lineWidth = 5
+        circleLayer.lineWidth = 10
         circleLayer.strokeColor = UIColor.red.cgColor
         circleLayer.fillColor =  UIColor.clear.cgColor
         circleLayer.strokeStart = 0
         circleLayer.strokeEnd = 0
-        } else if labelTimer.text == "00:00:00" && labelInfo.text == "Work Time" {
+        } else if labelTimer.text == "00:00" && labelInfo.text == "Round Time" {
             circleLayer.path = circlePath.cgPath
-            circleLayer.lineWidth = 5
+            circleLayer.lineWidth = 10
             circleLayer.strokeColor = UIColor.red.cgColor
             circleLayer.fillColor =  UIColor.white.cgColor
             circleLayer.strokeStart = 0
             circleLayer.strokeEnd = 0
-        } else if labelTimer.text == "00:00:00" && labelInfo.text == "Rest Time" {
+        } else if labelTimer.text == "00:00" && labelInfo.text == "Rest Time" {
             circleLayer.path = circlePath.cgPath
-            circleLayer.lineWidth = 5
+            circleLayer.lineWidth = 10
             circleLayer.strokeColor = UIColor.green.cgColor
             circleLayer.fillColor =  UIColor.white.cgColor
             circleLayer.strokeStart = 0
@@ -141,20 +141,20 @@ class ViewController: UIViewController {
     }
 
     func timeString(time: TimeInterval) -> String {
-        let hours = Int(time) / 3600
+//        let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
-        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+        return String(format:"%02i:%02i",minutes, seconds)
     }
 
     @objc func timerSetup() {
         timerCount -= 0.01
         labelTimer.text = timeString(time: TimeInterval(timerCount))
 
-        if labelTimer.text == "00:00:00" && labelInfo.text == "Work Time" {
+        if labelTimer.text == "00:00" && labelInfo.text == "Round Time" {
             timer.invalidate()
             timerRest()
-        } else if labelTimer.text == "00:00:00" && labelInfo.text == "Rest Time" {
+        } else if labelTimer.text == "00:00" && labelInfo.text == "Rest Time" {
             timerCount = 5
             timer.invalidate()
             timerWork()
@@ -162,17 +162,17 @@ class ViewController: UIViewController {
     }
 
     func timerWork() {
-        timerCount = 15
+        timerCount = 180
         timerUpdate()
         animationSetup(duration: Double(timerCount))
         circleLayer.strokeColor = UIColor.red.cgColor
         labelTimer.text = timeString(time: TimeInterval(timerCount))
-        labelInfo.text = "Work Time"
+        labelInfo.text = "Round Time"
         labelInfo.textColor = .white
     }
 
     func timerRest() {
-        timerCount = 15
+        timerCount = 60
         timerUpdate()
         animationSetup(duration: Double(timerCount))
         circleLayer.strokeColor = UIColor.green.cgColor
@@ -189,7 +189,7 @@ class ViewController: UIViewController {
         if  labelInfo.text == "Press to start" {
             buttonStartPause.isSelected = true
             timerWork()
-        } else if labelInfo.text == "Work Time" {
+        } else if labelInfo.text == "Round Time" {
             buttonStartPause.isSelected = false
             labelInfo.text = "Pause"
             timer.invalidate()
@@ -198,7 +198,7 @@ class ViewController: UIViewController {
             buttonStartPause.isSelected = true
             timerUpdate()
             labelTimer.text = timeString(time: TimeInterval(timerCount))
-            labelInfo.text = "Work Time"
+            labelInfo.text = "Round Time"
             labelInfo.textColor = .white
             circleLayer.resumeAnimation()
         } else if labelInfo.text == "Rest Time" {
