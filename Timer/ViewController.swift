@@ -52,6 +52,14 @@ class ViewController: UIViewController {
         return imageView
     } ()
 
+    private lazy var imageView: UIImageView = {
+        let image = UIImage(named: "fon")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+
     // MARK: - lifecycle
 
     override func viewDidLoad() {
@@ -65,6 +73,7 @@ class ViewController: UIViewController {
     // MARK: - Private functions
 
     private func setupHierarchy() {
+        view.addSubview(imageView)
         view.addSubview(labelInfo)
         view.addSubview(labelTimer)
         view.addSubview(shapeView)
@@ -74,12 +83,15 @@ class ViewController: UIViewController {
     }
 
     private func setupLayout() {
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         labelInfo.translatesAutoresizingMaskIntoConstraints = false
         labelTimer.translatesAutoresizingMaskIntoConstraints = false
         shapeView.translatesAutoresizingMaskIntoConstraints = false
         buttonStartPause.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
             labelTimer.centerXAnchor.constraint(equalTo: shapeView.centerXAnchor, constant: 0),
             labelTimer.centerYAnchor.constraint(equalTo: shapeView.centerYAnchor, constant: -60),
             labelTimer.heightAnchor.constraint(equalToConstant: 150),
@@ -141,7 +153,6 @@ class ViewController: UIViewController {
     }
 
     func timeString(time: TimeInterval) -> String {
-//        let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
         return String(format:"%02i:%02i",minutes, seconds)
