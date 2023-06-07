@@ -9,4 +9,4 @@
 - One minute rest time will start automatically.
 
 ## Screenshots
-<img src="https://github.com/SergeyKykhov/Timer/blob/main/Screenshots/1.png" width="214" height="433"><img src="https://github.com/SergeyKykhov/Timer/blob/main/Screenshots/2.png" width="214" height="433"><img src="https://github.com/SergeyKykhov/Timer/blob/main/Screenshots/3.png" width="214" height="433">
+<img src="https://github.com/SergeyKykhov/Timer/blob/main/Screenshots/1.png" width="214" height="423"><img src="https://github.com/SergeyKykhov/Timer/blob/main/Screenshots/2.png" width="214" height="423"><img src="https://github.com/SergeyKykhov/Timer/blob/main/Screenshots/3.png" width="214" height="423">
